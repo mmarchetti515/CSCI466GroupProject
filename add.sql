@@ -4,7 +4,7 @@
 
 -- Create Entity Tables
 CREATE TABLE Customer(
-    Email           VARCHAR(30)     PRIMARY KEY,
+    Email           VARCHAR(30)     UNIQUE  PRIMARY KEY,
     Name            VARCHAR(50)     NOT NULL,
     Password        VARCHAR(20)     NOT NULL,
     CC_Num          CHAR(16)        NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE Customer(
 );
 
 CREATE TABLE Order_(
-    Order_Num       INT         PRIMARY KEY,
+    Order_Num       INT         UNIQUE  PRIMARY KEY,
     Requested_QTY   INT         NOT NULL,
     Order_Date      DATE        NOT NULL,
     Status          VARCHAR(16) NOT NULL,
@@ -25,7 +25,7 @@ CREATE TABLE Order_(
 );
        
 CREATE TABLE Product(
-    P_ID            INT             PRIMARY KEY,
+    P_ID            INT             UNIQUE  PRIMARY KEY,
     P_Price         INT             NOT NULL,
     P_Name          VARCHAR(20)     NOT NULL,
     QTY_Avail       INT             NOT NULL,
@@ -33,7 +33,7 @@ CREATE TABLE Product(
 );
 
 CREATE TABLE Shipment(
-    Ship_ID         INT         PRIMARY KEY,
+    Ship_ID         INT         UNIQUE  PRIMARY KEY,
     Delivery_Date   DATE        NOT NULL,
     Num_Packages    INT         NOT NULL,
     Package_Type    VARCHAR(20) NOT NULL
