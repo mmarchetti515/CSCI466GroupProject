@@ -1,7 +1,7 @@
 -- CSCI 466
 
 -- Drop Tables
-DROP TABLE Cust_Order;
+DROP TABLE Customer_Order;
 DROP TABLE Order_Product;
 
 DROP TABLE Customer;
@@ -24,11 +24,11 @@ CREATE TABLE Customer(
 );
 
 CREATE TABLE Order_(
-    Order_Num       INT         UNIQUE  PRIMARY KEY,
-    Requested_QTY   INT         NOT NULL,
-    Order_Date      DATE        NOT NULL,
-    Status          VARCHAR(16) NOT NULL,
-    Net_Total       INT         NOT NULL
+    Order_Num       INT             UNIQUE  PRIMARY KEY,
+    Requested_QTY   INT             NOT NULL,
+    Order_Date      DATE            NOT NULL,
+    Status          VARCHAR(16)     NOT NULL,
+    Net_Total       INT             NOT NULL
 );
        
 CREATE TABLE Product(
@@ -40,34 +40,21 @@ CREATE TABLE Product(
 );
 
 CREATE TABLE Shipment(
-    Ship_ID         INT         UNIQUE  PRIMARY KEY,
-    Delivery_Date   DATE        NOT NULL,
-    Num_Packages    INT         NOT NULL,
-    Package_Type    VARCHAR(20) NOT NULL
+    Ship_ID         INT             UNIQUE  PRIMARY KEY,
+    Delivery_Date   DATE            NOT NULL,
+    Num_Packages    INT             NOT NULL,
+    Package_Type    VARCHAR(20)     NOT NULL
 );
 
 -- Create Relationship Tables
--- next 2 are subject to change 
-CREATE TABLE Cust_Order(
-    Order_Num       INT             UNIQUE  NOT NULL,
-    Requested_QTY   INT             NOT NULL,
-    Order_Date      Date            NOT NULL,
-    Status          VARCHAR(16)     NOT NULL,
-    Net_Total       INT             NOT NULL,
-    Email           VARCHAR(30)     UNIQUE  NOT NULL,
-    
-    PRIMARY KEY (Order_Num),
-    FOREIGN KEY (Email) REFERENCES Customer(Email)
+CREATE TABLE Customer_Order(
+    Email           VARCHAR(30),
+    Order_Num       INT             UNIQUE,
+
+    FOREIGN KEY (Email)     REFERENCES Customer (Email),
+    FOREIGN KEY (Order_Num) REFERENCES Order_   (Order_Num)
 );
 
 CREATE TABLE Order_Product(
-    P_ID            INT             UNIQUE  NOT NULL,
-    P_Price         INT             NOT NULL,
-    P_Name          VARCHAR(20)     NOT NULL,
-    QTY_Avail       INT             NOT NULL,
-    Lifetime_QTY    INT             NOT NULL,
-    Order_Num       INT             UNIQUE  NOT NULL,
-    
-    PRIMARY KEY (P_ID),
-    FOREIGN KEY (Order_Num) REFERENCES Order_(Order_Num)
+    Order_Num       INT         
 );
