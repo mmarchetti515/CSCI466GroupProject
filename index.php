@@ -4,6 +4,7 @@
 <?php
     // hide credentials
     include('login.php');
+    // init PDO
     try { 
         $dsn = "mysql:host=courses;dbname=z1940868";
         $pdo = new PDO($dsn, $username, $password);
@@ -24,22 +25,23 @@
         echo "<h3> Please enter E-mail: ";
         echo "<input type=\"text\" name=\"email\"/><br>";        
     echo "</form>";
-    
-    if (!empty($_POST["email"])) {
-        echo "Logged in using " . $_POST["email"] . "<br><br>";
+
+
+    // login
+        $prepared = $pdo->prepare('SELECT Email, Name
+                                FROM Customer
+                                WHERE Email = ?');
+    $prepared->execute(array($_POST["email"]));
+    $res = $prepared->fetchALL(PDO::FETCH_ASSOC);
+
+
+    if (sizeof($res) == 0) {
+        echo "<br>Not Logged in or incorrect email<br><br>";
     }
-    else {
-        echo "Not logged in<br><br>";
+    else if (sizeof($res) == 1) {
+        echo "Welcome " . $res[0]["Name"] ."!<br>";
     }
-    
-
-
-        
-
-    echo "<a href='cart.php'>Go to Cart</a><br>";
-    echo "<a href='order.php'> Go to Orders</a><br>";
 
     // Select from inventory
-    // 
 ?>
 </body></html>
