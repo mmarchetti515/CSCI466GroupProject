@@ -258,39 +258,36 @@ INSERT INTO Customer VALUES (
 
 
 --1
-INSERT INTO Order_ VALUES (
-    '1234567890',
-    '05/05/2022'
+INSERT INTO Order_ (Order_Num, Order_Date) VALUES (
+    '12347890',
+    '2022-05-05'
 );
 
 --2
-INSERT INTO Order_ VALUES (
-    '9584736855',
-    '05/06/2022'
+INSERT INTO Order_ (Order_Num, Order_Date) VALUES (
+    '95736855',
+    '2022-05-05'
 );
 
 --3
-INSERT INTO Order_ VALUES (
-    '7584937502',
-    '05/07/2022'
+INSERT INTO Order_ (Order_Num, Order_Date) VALUES (
+    '84937502',
+    '2022-05-05'
 );
 
 --4
-INSERT INTO Order_ VALUES (
-    '6723450324',
-    '05/05/2022'
+INSERT INTO Order_ (Order_Num, Order_Date) VALUES (
+    '23450324',
+    '2022-05-05'
 );
 
 --5
-INSERT INTO Order_ VALUES (
-    '0982734574',
-    '05/06/2022'
+INSERT INTO Order_ (Order_Num, Order_Date) VALUES (
+    '82734574',
+    '2022-05-05'
 );
 
 
 -- associate order num to email
 
 --1
-INSERT INTO Customer_Order VALUES (
-    ''
-)

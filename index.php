@@ -6,7 +6,7 @@
     include('login.php');
     // init PDO
     try { 
-        $dsn = "mysql:host=courses;dbname=z1940868";
+        $dsn;
         $pdo = new PDO($dsn, $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
