@@ -36,7 +36,7 @@ CREATE TABLE Order_(
        
 CREATE TABLE Product(
     P_ID            INT             UNIQUE  PRIMARY KEY,
-    P_Price         INT             NOT NULL,
+    P_Price         FLOAT           NOT NULL,
     P_Name          VARCHAR(50)     NOT NULL,
     QTY_Avail       INT             NOT NULL,
     Lifetime_QTY    INT             NOT NULL
