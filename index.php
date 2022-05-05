@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>Banana Threads Inc.</title></head><body>
+<!DOCTYPE html><html><head><title>Banana Tech Inc.</title></head><body>
     
 <!--login to mariadb-->
 <?php
@@ -48,15 +48,20 @@
 
         if (sizeof($res) == 0) {
             echo "Incorrect email or password<br><br>";
+            // create a boolean value for logged in or not
+            $test = False;
         }
         else if (sizeof($res) == 1) {
             echo "Welcome " . $res[0]["Name"] ."!<br><br>";
+            // create a boolean value for logged in or not
+            $test = True;
         }
         
         // Create Session Variable
         session_start();
         $_SESSION['inter_email'] = $_POST["entered_email"];
         $_SESSION['inter_password'] = $_POST["entered_password"];
+        $_SESSION['log_bool'] = $test;
     }
 
     // Go to cart
