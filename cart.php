@@ -16,7 +16,8 @@ catch(PDOexception $e) { // handle that exception
 <?php
     // create session for interpage communication
     session_start();
-    $passed = $_SESSION['inter_email'];   
+    $passed_email = $_SESSION['inter_email'];   
+    $passed_pass= $_SESSION['inter_password'];
 
     // debugging
     //echo "Testing variable passing! <br>";
@@ -25,7 +26,8 @@ catch(PDOexception $e) { // handle that exception
     // redirection
     // send back the email data so the user stays logged in
     echo "<form action=\"index.php\" method=\"POST\">";
-        echo "<input type=\"hidden\" name=\"email\" value=$passed>";
+        echo "<input type=\"hidden\" name=\"entered_email\" value=$passed_email>";
+        echo" <input type=\"hidden\" name=\"entered_password\" value=$passed_pass>";
         echo "<input type=\"submit\" name=\"submit\" value=\"Go back to homepage\">";
     echo "</form>"
     
