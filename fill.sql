@@ -1,5 +1,6 @@
 -- CSCI 466
--- Inserting all products
+-- Inserting all items
+-- Michael Marchetti
 
 --1
 INSERT INTO Product VALUES (
@@ -291,3 +292,85 @@ INSERT INTO Order_ (Order_Num, Order_Date) VALUES (
 -- associate order num to email
 
 --1
+INSERT INTO Customer_Order VALUES (
+    'bunnyhopper802@gmail.com',
+    '12347890'
+);
+
+--2
+INSERT INTO Customer_Order VALUES (
+    'patronsaint@gmail.com',
+    '95736855'
+);
+
+--3
+INSERT INTO Customer_Order VALUES (
+    'soccerdad78@gmail.com',
+    '84937502'
+);
+
+--4
+INSERT INTO Customer_Order VALUES (
+    'bobsaget@gmail.com',
+    '23450324'
+);
+
+--5
+INSERT INTO Customer_Order VALUES (
+    'vivalafrance@gmail.com',
+    '82734574'
+);
+
+
+-- associate order and product tables
+
+
+--1 order for bunnyhopper
+INSERT INTO Order_Product VALUES (
+    '12347890',
+    '12323467',
+    '1'
+);
+
+--1.1 order for bunnyhopper
+INSERT INTO Order_Product VALUES (
+    '12347890',
+    '14958473',
+    '2'
+);
+
+--2 order for patronsaint
+INSERT INTO Order_Product VALUES (
+    '95736855',
+    '13447890',
+    '3'
+);
+
+--3 order for soccerdad
+INSERT INTO Order_Product VALUES (
+    '84937502',
+    '06958473',
+    '2'
+);
+
+--4 order for bobsaget
+INSERT INTO Order_Product VALUES (
+    '23450324',
+    '75732848',
+    '40'
+);
+
+--4 order for bobsaget
+INSERT INTO Order_Product VALUES (
+    '23450324',
+    '12309238',
+    '1'
+);
+
+--5 order for vivalafrance
+INSERT INTO Order_Product VALUES (
+    '82734574',
+    '75732848',
+    '500'
+);
+

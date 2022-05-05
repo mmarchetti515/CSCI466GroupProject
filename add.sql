@@ -1,4 +1,6 @@
 -- CSCI 466
+-- generate tables
+-- Daniel Diaz
 
 -- Drop Tables
 DROP TABLE Customer_Order;
