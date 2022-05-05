@@ -1,36 +1,46 @@
 <!DOCTYPE html><html><head><title>Banana Threads Inc.</title></head><body>
-<?php
-include('login.php');
-// login to MariaDB
-try { // if something goes wrong, an exception is thrown
     
-    $dsn = "mysql:host=courses;dbname=z1860574";
-    $pdo = new PDO($dsn, $username, $password); 
-    
-    #homepage
-    echo "<h1>Welcome to Banana Threads Inc.</h1><br>";
-
-    echo $goToCart = "<a href='cart.php'>Go to Cart</a><br>";
-    echo $goToOrders = "<a href='order.php'>Go to Orders</a><br>";
-    ?>
-
-    <form method="post">
-        <label for="products">Select product:</label>
-        <?php
-        $rs = $pdo->query("SELECT p_name, p_price FROM Product;");
-        $row = $rs->fetchAll(PDO::FETCH_ASSOC);
-        echo '<option value="">Select Product </option>';
-        foreach ($row as $item) {
-            echo '<option value="' . $item["p_name"] . "|" . $item["p_price"] . '">' . $item["p_name"] . "</option>";
-        }
-        ?>
-        </select>
-
-
+<!--login to mariadb-->
 <?php
-}
-catch(PDOexception $e) { // handle that exception
-    echo "Connection to database failed: " . $e->getMessage();
-}
+    // hide credentials
+    include('login.php');
+    // init PDO
+    try { 
+        $pdo = new PDO($dsn, $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+    // catch exception
+    catch (PDOexception $e) {
+        echo "Connection to database: " . $e->getMessage();
+    }
+?>
+
+<!-- front end display -->
+<?php
+    echo "<h1> Welcome to Banana Threads Inc. </h1><br>";
+
+    // Get Customer Email
+    echo "<form action=\"\" method=\"POST\">";
+        echo "<h3> Please enter E-mail: ";
+        echo "<input type=\"text\" name=\"email\"/><br>";        
+    echo "</form>";
+
+
+    // login
+        $prepared = $pdo->prepare('SELECT Email, Name
+                                FROM Customer
+                                WHERE Email = ?');
+    $prepared->execute(array($_POST["email"]));
+    $res = $prepared->fetchALL(PDO::FETCH_ASSOC);
+
+
+    if (sizeof($res) == 0) {
+        echo "<br>Not Logged in or incorrect email<br><br>";
+    }
+    else if (sizeof($res) == 1) {
+        echo "Welcome " . $res[0]["Name"] ."!<br>";
+    }
+
+    // Select from inventory
 ?>
 </body></html>

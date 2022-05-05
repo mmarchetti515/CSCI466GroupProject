@@ -1,4 +1,6 @@
 -- CSCI 466
+-- generate tables
+-- Daniel Diaz
 
 -- Drop Tables
 DROP TABLE Customer_Order;
@@ -28,23 +30,21 @@ CREATE TABLE Customer(
 CREATE TABLE Order_(
     Order_Num       INT             UNIQUE  PRIMARY KEY,
     Order_Date      DATE            NOT NULL,
-    Status          VARCHAR(16)     NOT NULL,
-    Net_Total       INT             NOT NULL
+    Status          VARCHAR(16)     NOT NULL    DEFAULT 'NP',
+    Net_Total       INT             NOT NULL    DEFAULT '0'
 );
        
 CREATE TABLE Product(
     P_ID            INT             UNIQUE  PRIMARY KEY,
     P_Price         INT             NOT NULL,
-    P_Name          VARCHAR(20)     NOT NULL,
+    P_Name          VARCHAR(50)     NOT NULL,
     QTY_Avail       INT             NOT NULL,
     Lifetime_QTY    INT             NOT NULL
 );
 
 CREATE TABLE Shipment(
     Ship_ID         INT             UNIQUE  PRIMARY KEY,
-    Delivery_Date   DATE            NOT NULL,
-    Num_Packages    INT             NOT NULL,
-    Package_Type    VARCHAR(20)     NOT NULL
+    Delivery_Date   DATE            NOT NULL
 );
 
 -- Create Relationship Tables
