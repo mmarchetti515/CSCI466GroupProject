@@ -21,6 +21,9 @@
     echo "<h1> Welcome to Banana Threads Inc. </h1><br>";
     echo "<h3> Please login: </h3>";
 
+    // debug
+    //print_r($_POST);
+
     // Get Customer Email and Password through login prompt
     echo "<form action=\"\" method=\"POST\">";
         echo "<h3> Please enter E-mail: ";
@@ -34,10 +37,12 @@
     // login result
     // if no email has been entered: usually when page is first loaded
     //      otherwise php throws an error
-    if (sizeof($_POST) == 0) {
+    if (!isset($_POST["entered_email"]) && !isset($_POST["entered_password"])) {
+        // create a boolean value for logged in or not
+        $test = False;
         echo "Not logged in<br><br>";
     }
-    else { 
+    else if (isset($_POST["entered_email"]) && isset($_POST["entered_password"])){ 
         // login
         $prepared = $pdo->prepare('SELECT Email, Name
                                     FROM Customer
@@ -64,8 +69,9 @@
         $_SESSION['log_bool'] = $test;
     }
 
-    // Go to cart
-    echo "<a href='cart.php'>View your Cart</a><br>";
+    // Go to cart (Not used right now)
+    //echo "<a href='cart.php'>View your Cart</a><br>";
+    
     // Go to orders
     echo "<a href='order.php'>View your Orders</a><br><br>";
 
@@ -73,36 +79,51 @@
     $rs = $pdo->query("SELECT P_Name, P_Price FROM Product");
     $rows = $rs->fetchAll(PDO::FETCH_ASSOC);
     make_table($rows);
-    ?>
 
-    <form method="POST" action="">
-        <br><label for="product">Select Product:</label>
-        <select id="product" name="product">
-            <?php
+    echo "<form method=\"POST\" action=\"\">";
+        echo "<br><label for=\"product\">Select Product:</label>";
+        echo "<select id=\"product\" name=\"product\">";
             $rs = $pdo->query("SELECT P_Name, P_Price FROM Product;");
             $row = $rs->fetchAll(PDO::FETCH_ASSOC);
             echo '<option value=""></option>';
             foreach ($row as $item) {
                 #the options to select from in the drop down
-                echo '<option value="' . $item["P_Name"] . "|" . $item["P_Price"] . '">' . $item["P_Name"] . "</option>";
+                echo '<option value="' . $item["P_Name"] . " | " . $item["P_Price"] . '">' . $item["P_Name"] . "</option>";
             }
-            ?>
-        </select><br>
+        echo "</select><br>";
 
 
-        <label for="quantity">Enter Quantity:</label>
-        <input type="text" id="quantity" name="quantity"><br>
+        echo "<label for=\"quantity\">Enter Quantity:</label>";
+        echo "<input type=\"text\" id=\"quantity\" name=\"quantity\"><br>";
 
 
-        <br><input type="submit" value="Add to Cart" />
-    </form>
+        if ($test != True) {
+            echo "<h3>Cannot add to cart. You are not logged in!</h3><br>";
+        }
+        else {
+            echo "<br><input type=\"submit\" value=\"Add to Cart\" />";
+            // keep user logged in
+            echo "<form action=\"\" method=\"POST\">";
+                echo "<input type=\"hidden\" name=\"entered_email\" value=".$_SESSION['inter_email'].">";
+                echo "<input type=\"hidden\" name=\"entered_password\" value=".$_SESSION['inter_password'].">";
+            echo "</form>";
+        }
+    echo "</form>";
+    
+    // parses product string that contains the P_name and P_Price
+    if (isset($_POST["product"]) && $test == True) {
+        $exp = explode("|", $_POST["product"]);
+    }
+    
+    // Display Cart on same webpage
+    echo "<h3>Your shopping cart</h3><br>";
     
 
-    <!--add to cart has been selected-->
-    <?php
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            echo "Item added successfully!";
-    }
+    // add to cart has been selected
+    //if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+      //      echo "Item added successfully!";
+    //}
     ?>
 </body></html>
