@@ -75,7 +75,7 @@
     make_table($rows);
     ?>
 
-    <form method="post">
+    <form method="POST" action="">
         <br><label for="product">Select Product:</label>
         <select id="product" name="product">
             <?php
@@ -96,6 +96,7 @@
 
         <br><input type="submit" value="Add to Cart" />
     </form>
+    
 
     <!--add to cart has been selected-->
     <?php
