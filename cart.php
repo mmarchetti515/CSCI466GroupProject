@@ -43,7 +43,6 @@ catch(PDOexception $e) { // handle that exception
     
     //echo "<a href=\"index.php\">Go back to homepage</a><br>";
     //echo "<h1>View your cart here!</h1><br>";
-    
     }
 ?> 
 

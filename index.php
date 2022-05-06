@@ -1,5 +1,5 @@
-<!DOCTYPE html><html><head><title>Banana Tech Inc.</title></head><body>
-    
+<!DOCTYPE html><html><head><title>Banana Tech Inc.</title></head><body>  
+
 <!--login to mariadb-->
 <?php
     // hide credentials
@@ -16,10 +16,14 @@
     }
 ?>
 
+<form style=right:2px; action="emplogin.php">
+    <input type="submit" value="Employee Login" />
+</form>
+
 <!-- front end display -->
-<?php
-    echo "<h1> Welcome to Banana Threads Inc. </h1><br>";
-    echo "<h3> Please login: </h3>";
+    <?php
+    echo"<h1> Welcome to Banana Threads Inc. </h1><br>";
+    echo"<h3> Please login: </h3>";
 
     // debug
     //print_r($_POST);
