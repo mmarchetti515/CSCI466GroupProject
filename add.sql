@@ -30,7 +30,11 @@ CREATE TABLE Customer(
 CREATE TABLE Order_(
     Order_Num       INT             UNIQUE  PRIMARY KEY,
     Order_Date      DATE,
+<<<<<<< HEAD
     Status          VARCHAR(16)     NOT NULL    DEFAULT 'NP',
+=======
+    Status          VARCHAR(16)     NOT NULL    DEFAULT 'Not Placed',
+>>>>>>> 22e0915343a665ed9cf7d51b8d9ecb61f654174f
     Net_Total       INT             NOT NULL    DEFAULT '0'
 );
        
