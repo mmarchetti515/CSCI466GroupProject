@@ -5,7 +5,12 @@ function make_table($rows)
             echo "<table border=1>";
             echo "<tr>";
             foreach ($rows[0] as $key => $value) {
-                echo "<th>$key</th>";
+                if ($key == "P_Name") {
+                    echo "<th>Product</th>";
+                }
+                else {
+                    echo "<th>Price</th>";
+                }
             }
             echo "</tr>";
             foreach ($rows as $row) {
