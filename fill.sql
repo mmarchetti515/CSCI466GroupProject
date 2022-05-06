@@ -178,8 +178,8 @@ INSERT INTO Product VALUES (
     '75732848',
     '4.99',
     'Banana sticker, 20pk',
-    '100',
-    '200'
+    '10000',
+    '200000'
 );
 
 -- fill all customers
@@ -293,33 +293,43 @@ INSERT INTO Shipment VALUES (
 
 
 --1
-INSERT INTO Order_ (Order_Num, Order_Date) VALUES (
+INSERT INTO Order_  VALUES (
     '12347890',
-    '2022-05-05'
+    '2022-05-05',
+    'Shipped',
+    '1599.97'
 );
 
 --2
-INSERT INTO Order_ (Order_Num, Order_Date) VALUES (
+INSERT INTO Order_  VALUES (
     '95736855',
-    '2022-05-05'
+    '2022-05-05',
+    'Delivered',
+    '1199.97'
 );
 
 --3
-INSERT INTO Order_ (Order_Num, Order_Date) VALUES (
+INSERT INTO Order_  VALUES (
     '84937502',
-    '2022-05-05'
+    '2022-05-05',
+    'Delivered',
+    '799.98'
 );
 
 --4
-INSERT INTO Order_ (Order_Num, Order_Date) VALUES (
+INSERT INTO Order_  VALUES (
     '23450324',
-    '2022-05-05'
+    '2022-05-05',
+    'Processed',
+    '649.59'
 );
 
 --5
-INSERT INTO Order_ (Order_Num, Order_Date) VALUES (
+INSERT INTO Order_ VALUES (
     '82734574',
-    '2022-05-05'
+    '2022-05-05',
+    'Delivered',
+    '2495.00'
 );
 
 
