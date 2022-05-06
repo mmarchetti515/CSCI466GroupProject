@@ -19,6 +19,10 @@
 
 <h2>Banana Threads Employee Servicing Portal</h2>
 <?php
+    echo '<br><br><form action="index.php">';
+    echo '<input type="submit" value="Home" />';
+    echo '</form>';
+    
     echo"<h3>Store Inventory:</h3>";
     $rs = $pdo->query('SELECT * FROM Product;');
     $rows = $rs->fetchAll(PDO::FETCH_ASSOC);
@@ -28,4 +32,16 @@
     $rs = $pdo->query("SELECT * FROM Order_;");
     $rows = $rs->fetchAll(PDO::FETCH_ASSOC);
     reg_table($rows);
+
+    $rs = $pdo->query("SELECT * FROM Customer_Order");
+    $rows = $rs->fetchAll(PDO::FETCH_ASSOC);
+    reg_table($rows);
 ?>
+
+<form method="post" action="send_script.php">
+    Recipient : <input type="text"  name="Recipient" ><br />
+    Name:       <input type="text"  name="name     " > <br />
+    email:      <input type="email" name="email    " > <br />
+    Subject:    <input type="text"  name="subject  " > <br />
+    Message:    <textarea name="msg"></textarea>
+    <button type="submit" name="send_message_btn">Send</button>

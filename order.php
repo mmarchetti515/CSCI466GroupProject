@@ -26,9 +26,9 @@ catch(PDOexception $e) { // handle that exception
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $res = $pdo->query("SELECT * FROM Order_ where Order_Num = " . $_POST['OrderNum'] . ';');
         $rows = $res->fetch(PDO::FETCH_ASSOC);
-        echo "<br>Current Status: ";
+        echo "<br>Order #: ";
         echo $rows['Order_Num'];
-        echo "<br>Current Status: ";
+        echo "<br>Current Date: ";
         echo $rows['Order_Date'];
         echo "<br>Current Status: ";
         echo $rows['Status'];
