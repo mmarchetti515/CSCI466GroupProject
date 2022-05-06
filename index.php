@@ -4,7 +4,7 @@
 <?php
     // hide credentials
     include('login.php');
-    include('functions.php');
+    include('f2.php');
     // init PDO
     try { 
         $pdo = new PDO($dsn, $username, $password);
@@ -96,34 +96,85 @@
         echo "<label for=\"quantity\">Enter Quantity:</label>";
         echo "<input type=\"text\" id=\"quantity\" name=\"quantity\"><br>";
 
-
         if ($test != True) {
             echo "<h3>Cannot add to cart. You are not logged in!</h3><br>";
         }
-        else {
-            echo "<br><input type=\"submit\" value=\"Add to Cart\" />";
-            // keep user logged in
-            echo "<form action=\"\" method=\"POST\">";
+        
+        // logged in
+        // prevent this from running just because user is logged in
+        else if ($test == True && !empty($_POST["product"])){
+                // create a random order number and check if we're still using it
+                if (!isset($_POST["rand_order"])) {
+                    // if there is no variable with this name
+                    // a order_num hasn't been generated so create a new one
+                    $rand_order = rand(0, 10000000);
+                }
+                // form has been sent previously to update cart
+                // should lie in $_POST, assign to local variable for usage
+                else {
+                    $rand_order = $_POST["rand_order"];
+                }
+
+                // parse product info and get the ID of the product 
+                if (isset($_POST["product"])) {
+                    $exp = explode("|", $_POST["product"]);
+                } 
+                $parse = "SELECT P_ID from Product WHERE P_Name= \"$exp[0]\"";
+                $res_parse = $pdo->query($parse);
+                $res_rows = $res_parse->fetchAll(PDO::FETCH_ASSOC);
+
+                //echo $res_rows[0]["P_ID"];
+                
+                // create session variable
+                $_SESSION['rand_order'] = $rand_order;
+
+                // check if the $rand_order has a value
+                // fill Order_ with order number one time
+                if (!empty($rand_order) && empty($_POST["bool_onevisit"])) {
+                    // add Order_Num to be used for this current session
+                    $add_to_order = $pdo->prepare('INSERT INTO Order_(Order_Num) VALUES(?)');
+                    $add_to_order->execute(array($rand_order));
+                    // add Customer Email and link to order generated
+                    $add = $pdo->prepare('INSERT INTO Customer_Order VALUES(?,?)');
+                    $add->execute(array($_SESSION['inter_email'], $rand_order));        
+                    // Init Order_Product
+                    $addOR = $pdo->prepare('INSERT INTO Order_Product VALUES(?,?,?)');
+                    $addOR->execute(array($rand_order,$res_rows[0]["P_ID"], $_POST['quantity']));
+                }
+                // form has been set once and the proper Order_Num has been populated
+                else if (!empty($rand_order) && !empty($_POST["bool_onevisit"])) {
+                    $addOR = $pdo->prepare('INSERT INTO Order_Product VALUES(?,?,?)');
+                    $addOR->execute(array($rand_order,$res_rows[0]["P_ID"], $_POST['quantity']));
+                }
+
+                // keep user logged in
                 echo "<input type=\"hidden\" name=\"entered_email\" value=".$_SESSION['inter_email'].">";
                 echo "<input type=\"hidden\" name=\"entered_password\" value=".$_SESSION['inter_password'].">";
-            echo "</form>";
+                
+                if (!empty($rand_order)) {
+                    echo "<input type=\"hidden\" name=\"rand_order\" value=".$rand_order.">";
+                    // test variable: indicates this form has been sent once before
+                    // the first form sent fills the Order_ and should not be done on
+                    // subsequent form sends
+                    echo "<input type=\"hidden\" name=\"bool_onevisit\" value=\"true\">";
+                }
         }
+        // logged in but no product and quantity have been requested 
+        else if ($test == True && !isset($_POST["product"])) {
+            // keeyp user logged in but just send the product and qty that was inputted
+            // earlier 
+            echo "<input type=\"hidden\" name=\"entered_email\" value=".$_SESSION['inter_email'].">";
+            echo "<input type=\"hidden\" name=\"entered_password\" value=".$_SESSION['inter_password'].">";           
+        } 
+            
+        // update and add to cart    
+        echo "<br><input type=\"submit\" value=\"Add to Cart\" />"; 
     echo "</form>";
-    
-    // parses product string that contains the P_name and P_Price
-    if (isset($_POST["product"]) && $test == True) {
-        $exp = explode("|", $_POST["product"]);
-    }
-    
+
     // Display Cart on same webpage
     echo "<h3>Your shopping cart</h3><br>";
-    
-
-
-    // add to cart has been selected
-    //if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-      //      echo "Item added successfully!";
-    //}
+    $cart = $pdo->query("SELECT P_ID, Requested_QTY FROM Order_Product where Order_Num=\"$rand_order\"");
+    $cart_rows = $cart->fetchAll(PDO::FETCH_ASSOC);
+    print_r($cart_rows);
     ?>
 </body></html>

@@ -29,7 +29,7 @@ CREATE TABLE Customer(
 
 CREATE TABLE Order_(
     Order_Num       INT             UNIQUE  PRIMARY KEY,
-    Order_Date      DATE            NOT NULL,
+    Order_Date      DATE,
     Status          VARCHAR(16)     NOT NULL    DEFAULT 'NP',
     Net_Total       INT             NOT NULL    DEFAULT '0'
 );
